@@ -22,10 +22,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?= $form->field($model, 'password')->passwordInput(['class' => 'form-control', 'required' => true, 'placeholder' => 'Senha']) ?>
 
+<?= Html::submitButton('<span class="btn-block-text">Entrar</span>', ['class' => 'btn  btn-default btn-block', 'name' => 'login-button']) ?>
 <div class="clearfix"></div>
 
 <div class="separator">
-
+    <p>No primeiro acesso, utilize: <strong>admin</strong> / <strong>admin</strong></p>
     <div class="clearfix"></div>
     <br />
 
@@ -36,5 +37,3 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <?php ActiveForm::end(); ?>
-
-    
