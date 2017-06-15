@@ -51,10 +51,10 @@ class Usuarios extends ActiveRecord implements IdentityInterface
         return [
             'id' => 'ID',
             'nome' => 'Nome',
-            'email' => 'Email',
+            'email' => 'E-mail',
             'senha' => 'Senha',
             'chave' => 'Chave',
-            'dataCriacao' => 'Data Criacao',
+            'dataCriacao' => 'Data de Criação',
             'dataAtualizacao' => 'Data Atualização',
             'dataConfirmacao' => 'Data Confirmação',
             'dataExclusao' => 'Data Exclusão',
