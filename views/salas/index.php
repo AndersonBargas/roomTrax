@@ -9,16 +9,9 @@ use yii\grid\GridView;
 $this->title = 'Salas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="right_col" role="main">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Stripped table <small>Stripped table subtitle</small></h2>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
 
-                    <table class="table table-striped table-hover">
+
+                    <!--table class="table table-striped table-hover">
                       <thead>
                         <tr>
                           <th>#</th>
@@ -47,26 +40,27 @@ $this->params['breadcrumbs'][] = $this->title;
                           <td>@twitter</td>
                         </tr>
                       </tbody>
-                    </table>
+                    </table-->
 
+
+
+<div class="right_col" role="main">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Salas <small>Utilize esta página para gerenciar as salas</small></h2>
+                    <div class="clearfix"></div>
                   </div>
-                </div>
-              </div>
-</div>
-
-<div class="salas-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+                  <div class="x_content">
 
     <p>
-        <?= Html::a('Create Salas', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Nova sala', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'nome',
             'lotacao',
             'projetor:boolean',
@@ -74,5 +68,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
+        'tableOptions' =>['class' => 'table table-striped table-hover'],
     ]); ?>
+                  </div>
+                </div>
+              </div>
 </div>
