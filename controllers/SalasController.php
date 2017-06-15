@@ -35,6 +35,9 @@ class SalasController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest || !Yii::$app->user->identity->administrador) {
+            return $this->goHome();
+        }
         $dataProvider = new ActiveDataProvider([
             'query' => Salas::find(),
         ]);
@@ -51,6 +54,9 @@ class SalasController extends Controller
      */
     public function actionNovo()
     {
+        if (Yii::$app->user->isGuest || !Yii::$app->user->identity->administrador) {
+            return $this->goHome();
+        }
         $model = new Salas();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -70,6 +76,9 @@ class SalasController extends Controller
      */
     public function actionEditar($id)
     {
+        if (Yii::$app->user->isGuest || !Yii::$app->user->identity->administrador) {
+            return $this->goHome();
+        }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -89,6 +98,9 @@ class SalasController extends Controller
      */
     public function actionExcluir($id)
     {
+        if (Yii::$app->user->isGuest || !Yii::$app->user->identity->administrador) {
+            return $this->goHome();
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
