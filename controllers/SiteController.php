@@ -22,10 +22,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['sair'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['sair'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -34,7 +34,7 @@ class SiteController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    //'logout' => ['post'],
+                    //'sair' => ['post'],
                 ],
             ],
         ];
@@ -113,7 +113,7 @@ class SiteController extends Controller
      *
      * @return Response
      */
-    public function actionLogout()
+    public function actionSair()
     {
         $this->historico('Usuário se deslogou do sistema.');
         Yii::$app->user->logout();
