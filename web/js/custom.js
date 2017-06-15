@@ -990,7 +990,7 @@ function reservar(){
             dataType: 'json',
             cache: false,
             success: function(r){
-                console.log(r);
+                if( r.sucesso ){ location.reload(); }
             }
     });
 }
