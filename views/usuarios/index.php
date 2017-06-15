@@ -6,32 +6,39 @@ use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Usuarios';
+$this->title = 'Usuários';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="usuarios-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="right_col" role="main">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Usuários <small>Utilize esta página para gerenciar os usuários</small></h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
 
     <p>
-        <?= Html::a('Create Usuarios', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Novo usuário', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-<?php Pjax::begin(); ?>    <?= GridView::widget([
+<?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'nome',
             'email:email',
-            'senha',
-            'chave',
-            // 'dataCriacao',
+            'dataCriacao:datetime',
             // 'dataAtualizacao',
             // 'dataConfirmacao',
             // 'dataExclusao',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
+        'tableOptions' =>['class' => 'table table-striped table-hover'],
     ]); ?>
-<?php Pjax::end(); ?></div>
+                  </div>
+                </div>
+              </div>
+</div>
+
