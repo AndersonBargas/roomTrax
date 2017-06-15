@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\db\Expression;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -10,6 +11,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\Historico;
 use app\models\LoginForm;
+use app\models\Salas;
 use app\models\Usuarios;
 
 class SiteController extends Controller
@@ -106,7 +108,12 @@ class SiteController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->goHome();
         }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => Salas::find(),
+        ]); 
         return $this->render('principal', [
+            'dataProvider' => $dataProvider,
         ]);
     }
 
