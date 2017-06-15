@@ -22,20 +22,23 @@ class AppAsset extends AssetBundle
         'vendors/font-awesome/css/font-awesome.min.css', // Font Awesome
         'vendors/nprogress/nprogress.css', // NProgress
         'vendors/iCheck/skins/flat/green.css', // iCheck
+        'vendors/switchery/dist/switchery.min.css', // Switchery
         'vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css', // bootstrap-progressbar
         'vendors/jqvmap/dist/jqvmap.min.css', // JQVMap
         'vendors/bootstrap-daterangepicker/daterangepicker.css', // bootstrap-daterangepicker
         'css/custom.min.css', // Custom Theme Style
     ];
     public $js = [
-        'vendors/jquery/dist/jquery.min.js', // jQuery
+        //'vendors/jquery/dist/jquery.min.js', // jQuery
         'vendors/bootstrap/dist/js/bootstrap.min.js', // Bootstrap
         'vendors/fastclick/lib/fastclick.js', // FastClick
         'vendors/nprogress/nprogress.js', // NProgress
+        'vendors/bootbox/bootbox.min.js', // BootBox
         'vendors/Chart.js/dist/Chart.min.js', // Chart.js
         'vendors/gauge.js/dist/gauge.min.js', // gauge.js
         'vendors/bootstrap-progressbar/bootstrap-progressbar.min.js', // bootstrap-progressbar
         'vendors/iCheck/icheck.min.js', // iCheck
+        'vendors/switchery/dist/switchery.min.js', // Switchery
         'vendors/skycons/skycons.js', // Skycons
         'vendors/Flot/jquery.flot.js', // Flot
         'vendors/Flot/jquery.flot.pie.js', // Flot
@@ -51,11 +54,11 @@ class AppAsset extends AssetBundle
         'vendors/jqvmap/examples/js/jquery.vmap.sampledata.js', // JQVMap
         'vendors/moment/min/moment.min.js', // bootstrap-daterangepicker
         'vendors/bootstrap-daterangepicker/daterangepicker.js', // bootstrap-daterangepicker
-        'js/custom.min.js', // Custom Theme Scripts
+        'js/custom.js', // Custom Theme Scripts
 
     ];
     public $depends = [
-        //'yii\web\YiiAsset',
+        'yii\web\YiiAsset',
         //'yii\bootstrap\BootstrapAsset',
     ];
 }
