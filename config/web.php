@@ -42,6 +42,9 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
+                'agendar'                   => 'rest/agendar',      // Agendar
+                'pesquisar'                 => 'rest/pesquisar',    // Pesquisar
+
                 'usuarios'                  => 'usuarios/index',    // Usuários index
                 'usuarios/<action:(.*)>'    => 'usuarios/<action>', // Usuários actions
 
