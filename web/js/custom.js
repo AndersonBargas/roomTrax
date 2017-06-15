@@ -5061,7 +5061,30 @@ if (typeof NProgress != 'undefined') {
 		init_CustomNotification();
 		init_autosize();
 		init_autocomplete();
-				
-	});	
-	
-
+		yii.allowAction = function ($e) {
+			var message = $e.data('confirm');
+			return message === undefined || yii.confirm(message, $e);
+		};
+		yii.confirm = function (message, ok, cancel) {
+			bootbox.confirm({
+				message: message,
+				buttons: {
+					confirm: {
+							label: 'Excluir!',
+							className: 'btn-danger'
+					},
+					cancel: {
+							label: 'Manter como está',
+							className: 'btn-success'
+					}
+				},
+				callback: function (confirmed) {
+					if (confirmed) {
+						!ok || ok();
+					} else {
+						!cancel || cancel();
+					}
+				}
+			});
+		}
+	});
