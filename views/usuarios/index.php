@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Usuários';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="right_col" role="main">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <p><?= Html::a('Novo usuário', ['create'], ['class' => 'btn btn-success']) ?></p>
+                <p><?= Html::a('Novo usuário', ['novo'], ['class' => 'btn btn-success']) ?></p>
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'columns' => [
@@ -25,12 +25,26 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         'nome',
                         'email:email',
+                        'administrador:boolean',
                         'dataCriacao:datetime',
-                        // 'dataAtualizacao',
-                        // 'dataConfirmacao',
-                        // 'dataExclusao',
 
-                        ['class' => 'yii\grid\ActionColumn'],
+                        ['class' => 'yii\grid\ActionColumn',
+                        'template' => '{usuarioEditar} {usuarioExcluir}',
+                        'buttons'  => [
+                                        'usuarioEditar' => function ($url, $model) {
+                                            $url = Url::to(['usuarios/editar', 'id' => $model->id]);
+                                            return Html::a('<span class="fa fa-pencil"></span>', $url, ['title' => 'Editar']);
+                                        },
+                                        'usuarioExcluir' => function ($url, $model) {
+                                            $url = Url::to(['usuarios/excluir', 'id' => $model->id]);
+                                            return Html::a('<span class="fa fa-trash"></span>', $url, [
+                                                'title'        => 'Excluir',
+                                                'data-confirm' => 'Tem certeza que deseja excluir este usuário?',
+                                                'data-method'  => 'post',
+                                            ]);
+                                        },
+                                    ],
+                        ],
                     ],
                     'tableOptions' =>['class' => 'table table-striped table-hover'],
                 ]); ?>
