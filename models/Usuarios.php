@@ -2,8 +2,9 @@
 
 namespace app\models;
 
-//use Yii;
+use Yii;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 use yii\web\IdentityInterface;
 
 /**
@@ -13,10 +14,8 @@ use yii\web\IdentityInterface;
  * @property string $nome
  * @property string $email
  * @property string $senha
- * @property string $chave
+ * @property string $administrador
  * @property string $dataCriacao
- * @property string $dataAtualizacao
- * @property string $dataConfirmacao
  * @property string $dataExclusao
  */
 class Usuarios extends ActiveRecord implements IdentityInterface
@@ -37,9 +36,10 @@ class Usuarios extends ActiveRecord implements IdentityInterface
     {
         return [
             [['nome', 'email', 'senha'], 'required'],
-            [['dataCriacao', 'dataAtualizacao', 'dataConfirmacao', 'dataExclusao'], 'safe'],
-            [['nome', 'email', 'senha', 'chave'], 'string', 'max' => 120],
+            [['dataCriacao', 'dataExclusao'], 'safe'],
+            [['nome', 'email', 'senha'], 'string', 'max' => 120],
             [['email'], 'unique'],
+            [['administrador'], 'boolean'],
         ];
     }
 
@@ -53,10 +53,8 @@ class Usuarios extends ActiveRecord implements IdentityInterface
             'nome' => 'Nome',
             'email' => 'E-mail',
             'senha' => 'Senha',
-            'chave' => 'Chave',
+            'administrador' => 'Administrador',
             'dataCriacao' => 'Data de Criação',
-            'dataAtualizacao' => 'Data Atualização',
-            'dataConfirmacao' => 'Data Confirmação',
             'dataExclusao' => 'Data Exclusão',
         ];
     }
@@ -80,7 +78,7 @@ class Usuarios extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = NULL)
     {
-        return static::findOne(['chave' => $token]);
+        return false;
     }
     
     /**
@@ -107,7 +105,7 @@ class Usuarios extends ActiveRecord implements IdentityInterface
      */
     public function getAuthKey()
     {
-        return $this->chave;
+        return false;
     }
     
     /**
@@ -116,7 +114,7 @@ class Usuarios extends ActiveRecord implements IdentityInterface
      */
     public function validateAuthKey($chave)
     {
-        return $this->getAuthKey() === $chave;
+        return false;
     }
     
     /**
@@ -130,14 +128,17 @@ class Usuarios extends ActiveRecord implements IdentityInterface
         return $this->senha === $senha;
     }
     
-    /*public function beforeSave($insert)
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            //if ($this->isNewRecord) {
-                $this->chave = \Yii::$app->security->generateRandomString();
-            //}
+            if( isset($this->senha) && !empty($this->senha) ){
+                $this->senha = Yii::$app->getSecurity()->generatePasswordHash($this->senha);
+            }
+            if( $this->isNewRecord ){
+                $this->dataCriacao = new Expression('NOW()');
+            }
             return true;
         }
         return false;
-    }*/
+    }
 }
