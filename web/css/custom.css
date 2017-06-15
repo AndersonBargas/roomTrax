@@ -4239,3 +4239,25 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 .dataTables_wrapper > .row{
   overflow:auto !important; /*prevent datatables overflowing its container*/
 }
+
+.ocupado{
+    background-color: #a94442 !important;
+    color: #FFFFFF;
+    font-weight: bold;
+    cursor: not-allowed !important;
+}
+.livre{
+    background-color: #3c763d !important;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.livre.selecionado{
+    background-color: yellow !important;
+    color: #000000;
+}
+
+.day.active{
+    background-color: red !important;
+    color: #FFFFFF;
+}
