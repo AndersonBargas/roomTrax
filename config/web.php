@@ -54,7 +54,7 @@ $config = [
         'assetManager' => [
             'bundles' => [
                 'yii\web\JqueryAsset' => [
-                    'js'=>[]
+                    'jsOptions' => [ 'position' => \yii\web\View::POS_HEAD ],
                 ],
                 'yii\bootstrap\BootstrapPluginAsset' => [
                     'js'=>[]
