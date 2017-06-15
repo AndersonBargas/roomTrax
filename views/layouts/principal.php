@@ -56,8 +56,10 @@ AppAsset::register($this);
                 <h3>Menu</h3>
                 <ul class="nav side-menu">
                   <li><a href="/principal"><i class="fa fa-home"></i> Principal </a></li>
+                  <?php if( Yii::$app->user->identity->administrador ): ?>
                   <li><a href="/usuarios"><i class="fa fa-home"></i> Usuários </a></li>
                   <li><a href="/salas"><i class="fa fa-home"></i> Salas </a></li>
+                  <?php endif; ?>
                 </ul>
               </div>
 
