@@ -28,7 +28,7 @@ class AppAsset extends AssetBundle
         'css/custom.min.css', // Custom Theme Style
     ];
     public $js = [
-        //'vendors/jquery/dist/jquery.min.js', // jQuery
+        'vendors/jquery/dist/jquery.min.js', // jQuery
         'vendors/bootstrap/dist/js/bootstrap.min.js', // Bootstrap
         'vendors/fastclick/lib/fastclick.js', // FastClick
         'vendors/nprogress/nprogress.js', // NProgress
