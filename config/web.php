@@ -45,6 +45,9 @@ $config = [
                 'agendar'                   => 'rest/agendar',      // Agendar
                 'pesquisar'                 => 'rest/pesquisar',    // Pesquisar
 
+                'reservas'                  => 'reservas/index',    // Reservas index
+                'reservas/<action:(.*)>'    => 'reservas/<action>', // Reservas actions
+
                 'usuarios'                  => 'usuarios/index',    // Usuários index
                 'usuarios/<action:(.*)>'    => 'usuarios/<action>', // Usuários actions
 
