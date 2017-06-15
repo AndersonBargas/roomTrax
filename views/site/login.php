@@ -11,6 +11,7 @@ $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php $form = ActiveForm::begin([
+    //'enableAjaxValidation' => true,
     'fieldConfig' => [
             'template' => "{input}",
     ],
@@ -18,15 +19,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <h1>Login</h1>
 
-<?= $form->field($model, 'username')->textInput(['autofocus' => true, 'class' => 'form-control', 'required' => true, 'placeholder' => 'Usuário']) ?>
+<?= $form->field($model, 'email')->textInput(['autofocus' => true, 'class' => 'form-control', 'required' => true, 'placeholder' => 'Usuário']) ?>
 
-<?= $form->field($model, 'password')->passwordInput(['class' => 'form-control', 'required' => true, 'placeholder' => 'Senha']) ?>
+<?= $form->field($model, 'senha')->passwordInput(['class' => 'form-control', 'required' => true, 'placeholder' => 'Senha']) ?>
+
+<?php if (Yii::$app->session->hasFlash('erro')): ?>
+        <div class="alert alert-danger" style="color: #FFFFFF; text-shadow: none;" role="alert">
+            <strong>Oops!</strong> <?= Yii::$app->session->getFlash('erro') ?>
+        </div>
+        <?php endif; ?>
 
 <?= Html::submitButton('<span class="btn-block-text">Entrar</span>', ['class' => 'btn  btn-default btn-block', 'name' => 'login-button']) ?>
 <div class="clearfix"></div>
 
 <div class="separator">
-    <p>No primeiro acesso, utilize: <strong>admin</strong> / <strong>admin</strong></p>
+    <p>No primeiro acesso, utilize: <strong>admin@admin.com</strong> / <strong>admin</strong></p>
     <div class="clearfix"></div>
     <br />
 
