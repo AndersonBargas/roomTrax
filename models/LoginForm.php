@@ -49,21 +49,7 @@ class LoginForm extends Model
             if (!$user || !Yii::$app->getSecurity()->validatePassword($this->senha, $user->senha)) {
                 $this->addErrors(['email', 'senha']);
                 Yii::$app->getSession()->setFlash('erro','Email ou Senha incorretos.');
-            }else{
-                if(is_null($user->dataConfirmacao)){
-                    $this->addErrors(['email', 'senha']);
-                    Yii::$app->getSession()->setFlash('erro','Sua conta ainda não foi confirmada.');
-                }
             }
-            /*if (!$user || !$user->validatePassword($this->senha)) {
-                $this->addErrors(['email', 'senha']);
-                Yii::$app->getSession()->setFlash('erro','Email ou Senha incorretos.');
-            }else{
-                if(is_null($user->dataConfirmacao)){
-                    $this->addErrors(['email', 'senha']);
-                    Yii::$app->getSession()->setFlash('erro','Sua conta ainda não foi confirmada.');
-                }
-            }*/
         }
     }
 
