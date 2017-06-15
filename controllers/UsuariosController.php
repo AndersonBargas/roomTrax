@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Usuarios;
 use yii\data\ActiveDataProvider;
+use yii\db\Expression;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,8 +36,11 @@ class UsuariosController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest || !Yii::$app->user->identity->administrador) {
+            return $this->goHome();
+        }
         $dataProvider = new ActiveDataProvider([
-            'query' => Usuarios::find(),
+            'query' => Usuarios::find()->where(['dataExclusao' => null]),
         ]);
 
         return $this->render('index', [
@@ -51,6 +55,9 @@ class UsuariosController extends Controller
      */
     public function actionNovo()
     {
+        if (Yii::$app->user->isGuest || !Yii::$app->user->identity->administrador) {
+            return $this->goHome();
+        }
         $model = new Usuarios();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -70,6 +77,9 @@ class UsuariosController extends Controller
      */
     public function actionEditar($id)
     {
+        if (Yii::$app->user->isGuest || !Yii::$app->user->identity->administrador) {
+            return $this->goHome();
+        }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -89,7 +99,13 @@ class UsuariosController extends Controller
      */
     public function actionExcluir($id)
     {
-        $this->findModel($id)->delete();
+        if (Yii::$app->user->isGuest || !Yii::$app->user->identity->administrador) {
+            return $this->goHome();
+        }
+        //$this->findModel($id)->delete();
+        $exc = $this->findModel($id);
+        $exc->dataExclusao = new Expression('NOW()');
+        $exc->save();
 
         return $this->redirect(['index']);
     }
