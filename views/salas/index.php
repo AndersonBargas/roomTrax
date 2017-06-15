@@ -40,9 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'salaExcluir' => function ($url, $model) {
                                             $url = Url::to(['salas/excluir', 'id' => $model->id]);
                                             return Html::a('<span class="fa fa-trash"></span>', $url, [
-                                                /*'data' => [
-                                                    'pjax' => 0,
-                                                ],*/
                                                 'title'        => 'Excluir',
                                                 'data-confirm' => 'Tem certeza que deseja excluir esta sala?',
                                                 'data-method'  => 'post',
