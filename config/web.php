@@ -42,7 +42,13 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
-                '<action:(.*)>' => 'site/<action>', // última regra
+                'usuarios'                  => 'usuarios/index',    // Usuários index
+                'usuarios/<action:(.*)>'    => 'usuarios/<action>', // Usuários actions
+
+                'salas'                     => 'salas/index',       // Salas index
+                'salas/<action:(.*)>'       => 'salas/<action>',    // Salas actions
+
+                '<action:(.*)>'             => 'site/<action>',     // última regra
             ],
         ],
     ],
