@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -18,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <p><?= Html::a('Nova sala', ['create'], ['class' => 'btn btn-success']) ?></p>
+                <p><?= Html::a('Nova sala', ['novo'], ['class' => 'btn btn-success']) ?></p>
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'columns' => [
@@ -29,7 +30,26 @@ $this->params['breadcrumbs'][] = $this->title;
                         'projetor:boolean',
                         'som:boolean',
 
-                        ['class' => 'yii\grid\ActionColumn'],
+                        ['class' => 'yii\grid\ActionColumn',
+                        'template' => '{salaEditar} {salaExcluir}',
+                        'buttons'  => [
+                                        'salaEditar' => function ($url, $model) {
+                                            $url = Url::to(['salas/editar', 'id' => $model->id]);
+                                            return Html::a('<span class="fa fa-pencil"></span>', $url, ['title' => 'Editar']);
+                                        },
+                                        'salaExcluir' => function ($url, $model) {
+                                            $url = Url::to(['salas/excluir', 'id' => $model->id]);
+                                            return Html::a('<span class="fa fa-trash"></span>', $url, [
+                                                /*'data' => [
+                                                    'pjax' => 0,
+                                                ],*/
+                                                'title'        => 'Excluir',
+                                                'data-confirm' => 'Tem certeza que deseja excluir esta sala?',
+                                                'data-method'  => 'post',
+                                            ]);
+                                        },
+                                    ],
+                        ],
                     ],
                     'tableOptions' =>['class' => 'table table-striped table-hover'],
                 ]); ?>
