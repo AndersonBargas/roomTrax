@@ -99,11 +99,11 @@ class ReservasController extends Controller
      * @param string $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionExcluir($id)
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['site/principal']);
     }
 
     /**

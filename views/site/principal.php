@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = 'Principal';
 ?>
@@ -17,7 +18,39 @@ $this->title = 'Principal';
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <div id='calendar'></div>
+                        <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Usuário</th>
+                          <th>Sala</th>
+                          <th>Início</th>
+                          <th>Término</th>
+                          <th>Ação</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <?php foreach( $reservas as $r ): ?>
+                        <tr>
+                          <th><?= $r['usuario'] ?></th>
+                          <td><?= $r['sala'] ?></td>
+                          <td><?= $r['inicio'] ?></td>
+                          <td><?= $r['termino'] ?></td>
+                          <td>
+                          <?php if( Yii::$app->user->identity->id == $r['idUsuario'] ): ?>
+                          <?php
+                          $url = Url::to(['reservas/excluir', 'id' => $r['id']]);
+                          echo Html::a('<span class="fa fa-trash"></span>', $url, [
+                                                'title'        => 'Excluir',
+                                                'data-confirm' => 'Tem certeza que deseja excluir esta reserva?',
+                                                'data-method'  => 'post',
+                                            ]) ?>
+                          <!--button class="btn btn-danger">Excluir</button-->
+                          <?php endif; ?>
+                          </td>
+                        </tr>
+                        <?php endforeach; ?>
+                      </tbody>
+                    </table>
                     </div>
                 </div>
             </div>

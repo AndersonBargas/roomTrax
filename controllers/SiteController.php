@@ -109,11 +109,23 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
+        $conexao = Yii::$app->getDb();
+        $sql = $conexao->createCommand("
+                    SELECT R.id, U.id AS 'idUsuario', U.nome AS 'usuario',
+                    S.nome AS 'sala', DATE_FORMAT(R.inicio,'%d/%m/%Y %H:%i') AS 'inicio',
+                    DATE_FORMAT(R.termino,'%d/%m/%Y %H:%i') AS 'termino' FROM reservas AS R
+                    INNER JOIN usuarios AS U ON U.id = R.usuario
+                    INNER JOIN salas AS S ON S.id = R.sala", []);
+
+        $reservas = $sql->queryAll();
+
+
         $dataProvider = new ActiveDataProvider([
             'query' => Salas::find(),
         ]); 
         return $this->render('principal', [
             'dataProvider' => $dataProvider,
+            'reservas'  => $reservas,
         ]);
     }
 
