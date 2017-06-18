@@ -36,7 +36,7 @@ INSTALAÇÃO
 ### Instalação a partir do Arquivo
 
 Extraia o arquivo que pode ser baixado clicando [aqui](https://github.com/AndersonBargas/roomTrax/archive/master.zip) para
-o diretório raiz do ser WebServer.
+o diretório raiz do seu WebServer.
 
 Configure o arquivo `config/web.php` e troque a chave de validação de cookie para um código randômico que só você saiba, exemplo:
 
@@ -83,7 +83,7 @@ location / {
 }
     	
 location ~ \.php$ {
-	include fastcgi_params;
+    include fastcgi_params;
     fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
     fastcgi_pass 127.0.0.1:9056; // de acordo com o seu servidor php
     try_files $uri =404;
