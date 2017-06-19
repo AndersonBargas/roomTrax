@@ -3,7 +3,7 @@ RoomTRAX
 
 RoomTRAX é um sistema de agendamento e reserva para salas/auditórios.
 
-O sistema foi desenvolvido em PHP, utilizando o Yii Framework em sua segunda versão.O template é gratuito e foi desenvolvido por https://colorlib.com/
+O sistema foi desenvolvido em PHP, utilizando o Yii Framework em sua segunda versão. O template é gratuito e foi desenvolvido por https://colorlib.com/
 
 
 ESTRUTURA DE DIRETÓRIOS
