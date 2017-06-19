@@ -951,7 +951,7 @@ function gogogo(){
                                 dataType: 'json',
                                 cache: false,
                                 success: function(r){
-                                    r = r[0];
+                                    //r = r[0];
                                     for (i = 7; i <= 18; i++) {
                                         var classe = r[i].toLowerCase();
                                         $('#hora'+i).removeClass('livre').removeClass('ocupado').removeClass('selecionado').addClass(classe);

@@ -10,6 +10,8 @@ class RestController extends \yii\web\Controller
     {
         $usuario = Yii::$app->user->identity->id;
 
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
         $conexao = Yii::$app->getDb();
         $sql = $conexao->createCommand("
                     SELECT
@@ -27,19 +29,8 @@ class RestController extends \yii\web\Controller
                     IF( HOUR(R.inicio) = 18, 'OCUPADO', 'LIVRE' ) AS '18'
                     FROM reservas AS R
                     WHERE R.sala = :sala
-                    AND DATE(R.inicio) = DATE(:dia)", [':sala' => $sala, ':dia' => $dia]);
-
-        $retorno = $sql->queryAll();
-        if( count($retorno) === 0 ){
-            $r = [];
-            $r['7'] = 'LIVRE';    $r['8'] = 'LIVRE';    $r['9'] = 'LIVRE';
-            $r['10']= 'LIVRE';    $r['11']= 'LIVRE';    $r['12']= 'LIVRE';
-            $r['13']= 'LIVRE';    $r['14']= 'LIVRE';    $r['15']= 'LIVRE';
-            $r['16']= 'LIVRE';    $r['17']= 'LIVRE';    $r['18']= 'LIVRE';
-            $retorno[] = $r;
-        }
-
-        $sql = $conexao->createCommand("
+                    AND DATE(R.inicio) = DATE(:dia)
+                    UNION ALL
                     SELECT
                     IF( HOUR(R.inicio) =  7, 'OCUPADO', 'LIVRE' ) AS  '7',
                     IF( HOUR(R.inicio) =  8, 'OCUPADO', 'LIVRE' ) AS  '8',
@@ -55,19 +46,26 @@ class RestController extends \yii\web\Controller
                     IF( HOUR(R.inicio) = 18, 'OCUPADO', 'LIVRE' ) AS '18'
                     FROM reservas AS R
                     WHERE ( R.sala != :sala AND R.usuario = :usuario )
-                    AND DATE(R.inicio) = DATE(:dia)", [':sala' => $sala, ':usuario' => $usuario, ':dia' => $dia]);
-        $retorno2 = $sql->queryAll();
-        if( count($retorno2) > 0 ){
-            $r = $retorno2[0];
-            for( $i = 7; $i <= 18; $i++ ){
-                if($r[$i] === 'OCUPADO'){ $retorno[0][$i] = 'OCUPADO'; }
-            }
+                    AND DATE(R.inicio) = DATE(:dia)", [':sala' => $sala, ':dia' => $dia, ':usuario' => $usuario]);
+
+        $retorno = $sql->queryAll();
+        $r = [];
+        if( count($retorno) === 0 ){ // Nenhuma reserva, devolvemos tudo LIVRE
+            $r['7'] = 'LIVRE';    $r['8'] = 'LIVRE';    $r['9'] = 'LIVRE';    $r['10']= 'LIVRE';
+            $r['11']= 'LIVRE';    $r['12']= 'LIVRE';    $r['13']= 'LIVRE';    $r['14']= 'LIVRE';
+            $r['15']= 'LIVRE';    $r['16']= 'LIVRE';    $r['17']= 'LIVRE';    $r['18']= 'LIVRE';
+            return $r;
         }
 
-
-
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        return $retorno;
+        $r['7'] = 'LIVRE';    $r['8'] = 'LIVRE';    $r['9'] = 'LIVRE';    $r['10']= 'LIVRE';
+        $r['11']= 'LIVRE';    $r['12']= 'LIVRE';    $r['13']= 'LIVRE';    $r['14']= 'LIVRE';
+        $r['15']= 'LIVRE';    $r['16']= 'LIVRE';    $r['17']= 'LIVRE';    $r['18']= 'LIVRE';
+        foreach( $retorno as $ret ){ // Para cada linha
+            for( $i = 7; $i <= 18; $i++ ){
+                if($ret[$i] === 'OCUPADO'){ $r[$i] = 'OCUPADO'; }
+            }
+        }
+        return $r;
     }
 
     public function actionAgendar($sala, $inicio, $termino)
