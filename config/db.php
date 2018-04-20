@@ -2,8 +2,8 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=127.0.0.1;dbname=roomtrax',
-    'username' => 'root',
-    'password' => 'toor',
+    'dsn' => 'mysql:host=mysql;dbname=' . getenv('MYSQL_DATABASE'),
+    'username' => getenv('MYSQL_USER'),
+    'password' => getenv('MYSQL_PASSWORD'),
     'charset' => 'utf8',
 ];
